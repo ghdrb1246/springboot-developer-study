@@ -7,12 +7,11 @@
 - **참고 도서:** [해당 교보문고 도서 링크](https://ebook-product.kyobobook.co.kr/dig/epd/sam/E000012835012?tabType=SAM)
 
 ## 기술 스택 (Tech Stack)
-- **Language:** Java 17 
-- **Framework:** Spring Boot 3.x
-- **Database:** H2 Database (개발용) / MySQL (운영용)
+- **Language:** Java 25 
+- **Framework:** Spring Boot 4.0.8
+- **Database:** H2 Database / MySQL
 - **ORM:** Spring Data JPA
 - **Build Tool:** Gradle
-- **Template Engine:** Thymeleaf
 
 ## 학습 진도 및 목차 (Curriculum)
 학습을 완료한 챕터는 `[x]`로 표시하여 진도를 관리합니다. 교재의 상세 목차에 맞춰 유동적으로 수정하여 사용하세요.
