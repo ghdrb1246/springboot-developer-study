@@ -14,7 +14,7 @@
 - **Build Tool:** Gradle
 - **Template Engine:** Thymeleaf
 
-## 📖 학습 진도 및 목차 (Curriculum)
+## 학습 진도 및 목차 (Curriculum)
 학습을 완료한 챕터는 `[x]`로 표시하여 진도를 관리합니다. 교재의 상세 목차에 맞춰 유동적으로 수정하여 사용하세요.
 
 - [x] **Chapter 1~2:** 스프링 부트 시작하기 및 환경 설정 (JDK, IDE, Postman)
