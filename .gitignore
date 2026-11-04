@@ -16,7 +16,6 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-.env
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Environment variables ###
+.env
+*.env
