@@ -20,6 +20,6 @@ public class ArticleViewResponse {
         this.title = article.getTitle();
         this.content = article.getContent();
         this.imageUrl = article.getImageUrl();
-        this.createdAt = getCreatedAt();
+        this.createdAt = article.getCreatedAt();
     }
 }

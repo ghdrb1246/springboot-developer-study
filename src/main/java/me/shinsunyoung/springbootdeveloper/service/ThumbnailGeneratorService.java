@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.net.URI;
+import java.util.Base64;
 
 @Service
 public class ThumbnailGeneratorService {
@@ -37,11 +38,18 @@ public class ThumbnailGeneratorService {
 
         ImageResponse response = imageModel.call(new ImagePrompt(prompt));
         Image image = response.getResult().getOutput();
-
+        /*
         byte[] bytes = restClient.get()
                 .uri(URI.create(image.getUrl()))
                 .retrieve()
                 .body(byte[].class);
+        */
+
+        byte[] bytes = (image.getB64Json() != null)
+                ? Base64.getDecoder().decode(image.getB64Json())          // gpt-image 계열
+                : restClient.get().uri(URI.create(image.getUrl()))       // URL을 주는 모델 대비
+                .retrieve().body(byte[].class);
+
         UploadResponse saved = fileStorageService.store(bytes, "thumbnail.png");
 
         return new GeneratorThumbnailResponse(saved.imageUrl());

@@ -16,4 +16,12 @@ spring:
 
   ai:
     openai:
-      api-key: 1
+      api-key: ${OPENAI_API_KEY}   # 키를 파일에 직접 쓰지 말고 환경변수로
+      chat:
+        options:
+          model: gpt-5-nano
+      image:
+        options:
+          model: gpt-image-2
+          quality: low
+          size: 1024x1024
