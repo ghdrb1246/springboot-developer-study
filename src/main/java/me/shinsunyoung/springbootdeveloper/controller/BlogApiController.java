@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,11 @@ public class BlogApiController {
     private final ThumbnailGeneratorService thumbnailGeneratorService;
 
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article saveArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article saveArticle = blogService.save(request, principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(saveArticle);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(saveArticle);
     }
 
     @GetMapping("/api/articles")
