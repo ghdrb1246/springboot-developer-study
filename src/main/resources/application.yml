@@ -25,6 +25,17 @@ spring:
           model: gpt-image-2
           quality: low
           size: 1024x1024
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope:
+              - email
+              - profile
 jwt:
   issuer: ajufresh@gmail.com
   secret_key: study-springboot
