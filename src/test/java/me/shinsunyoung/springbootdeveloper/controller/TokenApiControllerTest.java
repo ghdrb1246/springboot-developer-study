@@ -31,12 +31,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TokenApiControllerTest {
+class TokenApiControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;
 
     @Autowired
     private WebApplicationContext context;
@@ -51,7 +51,7 @@ public class TokenApiControllerTest {
     RefreshTokenRepository refreshTokenRepository;
 
     @BeforeEach
-    public void mockMvcSetup() {
+    public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
         userRepository.deleteAll();
@@ -79,7 +79,7 @@ public class TokenApiControllerTest {
         final String requestBody = objectMapper.writeValueAsString(request);
 
         ResultActions resultActions = mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(requestBody));
 
         resultActions
