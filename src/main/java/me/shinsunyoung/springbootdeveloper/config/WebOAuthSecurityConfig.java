@@ -3,6 +3,7 @@ package me.shinsunyoung.springbootdeveloper.config;
 import lombok.RequiredArgsConstructor;
 import me.shinsunyoung.springbootdeveloper.config.jwt.TokenProvider;
 import me.shinsunyoung.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.shinsunyoung.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.shinsunyoung.springbootdeveloper.repository.RefreshTokenRepository;
 import me.shinsunyoung.springbootdeveloper.service.UserService;
 import me.shinsunyoung.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
@@ -15,7 +16,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,7 +25,7 @@ import static org.springframework.boot.security.autoconfigure.web.servlet.PathRe
 @RequiredArgsConstructor
 @Configuration
 public class WebOAuthSecurityConfig {
-    private final OAuth2UserService oAuth2UserService;
+    private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserService userService;
@@ -42,7 +42,7 @@ public class WebOAuthSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filerChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -55,8 +55,9 @@ public class WebOAuthSecurityConfig {
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("login")
+                        .loginPage("/login")
                         .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint.authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository()))
+                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.userService(oAuth2UserCustomService))
                         .successHandler(oAuth2SuccessHandler())
                 )
                 .exceptionHandling(ex -> ex
