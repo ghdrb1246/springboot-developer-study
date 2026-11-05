@@ -25,22 +25,22 @@ public class CookieUtil {
 
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
-                cookie.setValue("/");
-                cookie.setPath("");
+                cookie.setValue("");
+                cookie.setPath("/");
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
             }
         }
     }
     public static String serialize(Object obj) {
-        return Base64.getEncoder()
-                .encodeToString(obj.toString().getBytes());
+        return Base64.getUrlEncoder()
+                .encodeToString(SerializationUtils.serialize(obj));
     }
 
     public static <T> T deserialize(Cookie cookie, Class<T> cls) {
         return cls.cast(
                 SerializationUtils.deserialize(
-                        Base64.getDecoder().decode(cookie.getValue())
+                        Base64.getUrlDecoder().decode(cookie.getValue())
                 )
         );
     }
